@@ -25,7 +25,7 @@ class CIDProcedimiento(db.Model, UniversalMixin):
     id = db.Column(db.Integer, primary_key=True)
 
     # Columnas
-    descripcion = db.Column(db.String(256), nullable=False)  # Título del Procedimiento
+    titulo_procedimiento = db.Column(db.String(256), nullable=False)  # Título del Procedimiento
     codigo = db.Column(db.String(16), nullable=False)
     revision = db.Column(db.Integer(), nullable=False)
     fecha = db.Column(db.Date(), nullable=False)  # Fecha Elaboración
@@ -35,18 +35,17 @@ class CIDProcedimiento(db.Model, UniversalMixin):
     definiciones = db.Column(db.Text(), nullable=False)  # DEFINICIONES
     responsabilidades = db.Column(db.Text(), nullable=False)  # RESPONSABILIDADES
     desarrollo = db.Column(db.Text(), nullable=False)  # DESARROLLO
-    gestion_riesgos = db.Column(db.Text(), nullable=False)  # GESTIÓN DE RIESGOS
-    # REGISTROS
-    # CONTROL DE CAMBIOS
-    # elaboro
-    # reviso
-    # aprobo
-    etapa = db.Column(
-        db.Enum(*ETAPAS, name="etapas", native_enum=False),
-        index=True,
-        nullable=False,
-    )
-    contenido = db.Column(db.Text(), nullable=False)
+    registros = db.Column(db.Text(), nullable=False)  # REGISTROS
+    cambios = db.Column(db.Text(), nullable=False)  # REGISTROS
+    # elaboro = db.Column(db.Text(), nullable=False)
+    # reviso = db.Column(db.Text(), nullable=False)
+    # aprobo = db.Column(db.Text(), nullable=False)
+    # etapa = db.Column(
+    #    db.Enum(*ETAPAS, name="etapas", native_enum=False),
+    #    index=True,
+    #    nullable=False,
+    # )
+    # contenido = db.Column(db.Text(), nullable=False)
 
     # Hijos
     formatos = db.relationship("CIDFormato", back_populates="procedimiento")

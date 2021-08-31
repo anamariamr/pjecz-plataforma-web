@@ -6,63 +6,252 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.1/quill.snow.css" rel="stylesheet">
 {%- endmacro -%}
 
+{%- macro custom_library() -%}
+    <!-- Quill library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.1/quill.min.js"></script>
+{%- endmacro -%}
+
 {# Quill div #}
-{%- macro div(quill_id='editor') -%}
+{%- macro div(quill_id) -%}
     <div id="{{ quill_id }}" class="mb-2" style="display:block; clear:both; break-after:page; height:55vh;"></div>
 {%- endmacro -%}
 
 {# Quill custom javascript editor #}
-{%- macro editor_custom_javascript(form_id, form_hidden_id, content='', quill_id='editor') -%}
-    <!-- Quill library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.1/quill.min.js"></script>
+{%- macro editor_custom_javascript(form_id, form_hidden_id, content='', quill_id='') -%}
     <script>
         $( document ).ready(function() {
-            // Quill editor
+       // Quill editor
+            const fontSizeArr = ['8px','9px','10px','12px','14px','16px','20px','24px','32px','42px','54px','68px','84px','98px'];
+            var Size = Quill.import('attributors/style/size');
+            Size.whitelist = fontSizeArr;
+            Quill.register(Size, true);
             var quill = new Quill('#{{ quill_id }}', {
                 modules: {
                     table: true,
                     toolbar: [
+             
                         ['bold', 'italic', 'underline', 'strike'],
                         ['blockquote', 'code-block', 'image'],
                         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                         [{ 'script': 'sub' }, { 'script': 'super' }],  // superscript/subscript
                         [{ 'indent': '-1' }, { 'indent': '+1' }],      // outdent/indent
-                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        //[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'size': fontSizeArr }],
                         [{ 'color': [] }, { 'background': [] }],       // dropdown with defaults from theme
                         [{ 'font': [] }],
                         [{ 'align': [] }],
                         ['clean']                                      // remove formatting
                     ],
                 },
-                theme: 'snow'
+                theme: 'snow',
+        
             });
+
+
             // Fill at start
-            if (content != '') {
+            if ('{{content}}' != '') {
                 quill.setContents({{ content }});
+            }else{
+                // set html content
+                quill.setHTML = (html) => {
+                    quill.root.innerHTML = html;
+                };
+                // usages
+                var html = '';
+                var tableregistro = '<table><tbody><tr><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Código</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Nombre</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Responsable</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Forma</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Tiempo de Retención</strong></td></tr><tr><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td></tr><tr><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td></tr><tr><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td></tr><tr><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td></tr></tbody></table>';
+                var tablerevision = '<table><tbody><tr><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">No. Revisión</strong></td><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">Fecha de Revisión</strong></td><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">Sección</strong></td><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">Descripción y motivo del cambio</strong></td></tr><tr><td data-row="row-gzzz"><br></td><td data-row="row-gzzz"><br></td><td data-row="row-gzzz"><br></td><td data-row="row-gzzz"><br></td></tr><tr><td data-row="row-2f2l"><br></td><td data-row="row-2f2l"><br></td><td data-row="row-2f2l"><br></td><td data-row="row-2f2l"><br></td></tr><tr><td data-row="row-svn1"><br></td><td data-row="row-svn1"><br></td><td data-row="row-svn1"><br></td><td data-row="row-svn1"><br></td></tr><tr><td data-row="row-h4oe"><br></td><td data-row="row-h4oe"><br></td><td data-row="row-h4oe"><br></td><td data-row="row-h4oe"><br></td></tr></tbody></table>'
+                var tablefirmas = '<table><tbody><tr><td data-row="row-d934"><br></td><td data-row="row-d934" class="ql-align-center"><strong style="font-size: 16px;">Elaboró</strong></td><td data-row="row-d934" class="ql-align-center"><strong style="font-size: 16px;">Revisó</strong></td><td data-row="row-d934" class="ql-align-center"><strong style="font-size: 16px;">Aprobó</strong></td></tr><tr><td data-row="row-l26e" class="ql-align-right"><strong style="font-size: 16px;">Firmas</strong></td><td data-row="row-l26e"><br></td><td data-row="row-l26e"><br></td><td data-row="row-l26e"><br></td></tr><tr><td data-row="row-jvku" class="ql-align-right"><strong style="font-size: 16px;">Puesto</strong></td><td data-row="row-jvku"><br></td><td data-row="row-jvku"><br></td><td data-row="row-jvku"><br></td></tr></tbody></table>';
+                switch ('{{quill_id}}') {
+                    case 'registros':
+                        html = tableregistro
+                        break;
+                    case 'cambios':
+                        html = tablerevision + '<p><br></p><p><br></p>' + tablefirmas;
+                        break;
+                }
+                quill.setHTML(html);
             }
+
             // On submit
             document.getElementById('{{ form_id }}').onsubmit = function() {copyFromQuillToInputHidden()};
             // Copy to input hidden field
             function copyFromQuillToInputHidden() {
-                document.getElementById('{{ form_hidden_id }}').value = JSON.stringify(quill.getContents());
+               return document.getElementById('{{ form_hidden_id }}').value = JSON.stringify(quill.getContents());
             }
         });
     </script>
 {%- endmacro -%}
 
-{# Quill custom javascript reader #}
-{%- macro reader_custom_javascript(content='', quill_id='editor') -%}
-    <!-- Quill library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.1/quill.min.js"></script>
-    <script>
-        $( document ).ready(function() {
-            // Quill reader
-            var quill = new Quill('#{{ quill_id }}', {
-                readOnly: true,
-                theme: 'snow'
-            });
-            // Fill at start
-            quill.setContents({{ content }});
-        });
-    </script>
+{%- macro steps_custom_javascript() -%}
+<script>
+    //DOM elements
+    const DOMstrings = {
+    stepsBtnClass: 'multisteps-form__progress-btn',
+    stepsBtns: document.querySelectorAll(`.multisteps-form__progress-btn`),
+    stepsBar: document.querySelector('.multisteps-form__progress'),
+    stepsForm: document.querySelector('.multisteps-form__form'),
+    stepsFormTextareas: document.querySelectorAll('.multisteps-form__textarea'),
+    stepFormPanelClass: 'multisteps-form__panel',
+    stepFormPanels: document.querySelectorAll('.multisteps-form__panel'),
+    stepPrevBtnClass: 'js-btn-prev',
+    stepNextBtnClass: 'js-btn-next' };
+
+
+    //remove class from a set of items
+    const removeClasses = (elemSet, className) => {
+
+    elemSet.forEach(elem => {
+
+        elem.classList.remove(className);
+
+    });
+
+    };
+
+    //return exect parent node of the element
+    const findParent = (elem, parentClass) => {
+
+    let currentNode = elem;
+
+    while (!currentNode.classList.contains(parentClass)) {
+        currentNode = currentNode.parentNode;
+    }
+
+    return currentNode;
+
+    };
+
+    //get active button step number
+    const getActiveStep = elem => {
+    return Array.from(DOMstrings.stepsBtns).indexOf(elem);
+    };
+
+    //set all steps before clicked (and clicked too) to active
+    const setActiveStep = activeStepNum => {
+
+    //remove active state from all the state
+    removeClasses(DOMstrings.stepsBtns, 'js-active');
+
+    //set picked items to active
+    DOMstrings.stepsBtns.forEach((elem, index) => {
+
+        if (index <= activeStepNum) {
+        elem.classList.add('js-active');
+        }
+
+    });
+    };
+
+    //get active panel
+    const getActivePanel = () => {
+
+    let activePanel;
+
+    DOMstrings.stepFormPanels.forEach(elem => {
+
+        if (elem.classList.contains('js-active')) {
+
+        activePanel = elem;
+
+        }
+
+    });
+
+    return activePanel;
+
+    };
+
+    //open active panel (and close unactive panels)
+    const setActivePanel = activePanelNum => {
+
+    //remove active class from all the panels
+    removeClasses(DOMstrings.stepFormPanels, 'js-active');
+
+    //show active panel
+    DOMstrings.stepFormPanels.forEach((elem, index) => {
+        if (index === activePanelNum) {
+
+        elem.classList.add('js-active');
+
+        setFormHeight(elem);
+
+        }
+    });
+
+    };
+
+    //set form height equal to current panel height
+    const formHeight = activePanel => {
+
+    const activePanelHeight = activePanel.offsetHeight;
+
+    DOMstrings.stepsForm.style.height = `${activePanelHeight}px`;
+
+    };
+
+    const setFormHeight = () => {
+    const activePanel = getActivePanel();
+
+    formHeight(activePanel);
+    };
+
+    //STEPS BAR CLICK FUNCTION
+    DOMstrings.stepsBar.addEventListener('click', e => {
+
+    //check if click target is a step button
+    const eventTarget = e.target;
+
+    if (!eventTarget.classList.contains(`${DOMstrings.stepsBtnClass}`)) {
+        return;
+    }
+
+    //get active button step number
+    const activeStep = getActiveStep(eventTarget);
+
+    //set all steps before clicked (and clicked too) to active
+    setActiveStep(activeStep);
+
+    //open active panel
+    setActivePanel(activeStep);
+    });
+
+    //PREV/NEXT BTNS CLICK
+    DOMstrings.stepsForm.addEventListener('click', e => {
+
+    const eventTarget = e.target;
+
+    //check if we clicked on `PREV` or NEXT` buttons
+    if (!(eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) || eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`)))
+    {
+        return;
+    }
+
+    //find active panel
+    const activePanel = findParent(eventTarget, `${DOMstrings.stepFormPanelClass}`);
+
+    let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
+
+    //set active step and active panel onclick
+    if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
+        activePanelNum--;
+
+    } else {
+
+        activePanelNum++;
+
+    }
+
+    setActiveStep(activePanelNum);
+    setActivePanel(activePanelNum);
+
+    });
+
+    //SETTING PROPER FORM HEIGHT ONLOAD
+    window.addEventListener('load', setFormHeight, false);
+
+    //SETTING PROPER FORM HEIGHT ONRESIZE
+    window.addEventListener('resize', setFormHeight, false);
+
+</script>
 {%- endmacro -%}
+
