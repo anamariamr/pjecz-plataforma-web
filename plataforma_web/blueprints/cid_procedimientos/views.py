@@ -66,6 +66,15 @@ def new():
             desarrollo=form.desarrollo.data,
             registros=form.registros.data,
             cambios=form.cambios.data,
+            elaboro_nombre=form.elaboro_nombre.data,
+            elaboro_puesto=form.elaboro_puesto.data,
+            elaboro_email=form.elaboro_email.data,
+            reviso_nombre=form.reviso_nombre.data,
+            reviso_puesto=form.reviso_puesto.data,
+            reviso_email=form.reviso_email.data,
+            aprobo_nombre=form.aprobo_nombre.data,
+            aprobo_puesto=form.aprobo_puesto.data,
+            aprobo_email=form.aprobo_email.data,
         )
         cid_procedimiento.save()
         flash(f"CID Procedimiento {cid_procedimiento.titulo_procedimiento} guardado.", "success")

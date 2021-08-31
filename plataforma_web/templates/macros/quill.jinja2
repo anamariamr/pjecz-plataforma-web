@@ -29,7 +29,6 @@
                 modules: {
                     table: true,
                     toolbar: [
-             
                         ['bold', 'italic', 'underline', 'strike'],
                         ['blockquote', 'code-block', 'image'],
                         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
@@ -44,10 +43,7 @@
                     ],
                 },
                 theme: 'snow',
-        
             });
-
-
             // Fill at start
             if ('{{content}}' != '') {
                 quill.setContents({{ content }});
@@ -60,13 +56,12 @@
                 var html = '';
                 var tableregistro = '<table><tbody><tr><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Código</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Nombre</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Responsable</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Forma</strong></td><td data-row="row-vc0d" class="ql-align-center"><strong style="font-size: 16px;">Tiempo de Retención</strong></td></tr><tr><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td><td data-row="row-0bvh"><br></td></tr><tr><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td><td data-row="row-n9b6"><br></td></tr><tr><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td><td data-row="row-bm52"><br></td></tr><tr><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td><td data-row="row-zs0i"><br></td></tr></tbody></table>';
                 var tablerevision = '<table><tbody><tr><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">No. Revisión</strong></td><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">Fecha de Revisión</strong></td><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">Sección</strong></td><td data-row="row-ldo8" class="ql-align-center"><strong style="font-size: 16px;">Descripción y motivo del cambio</strong></td></tr><tr><td data-row="row-gzzz"><br></td><td data-row="row-gzzz"><br></td><td data-row="row-gzzz"><br></td><td data-row="row-gzzz"><br></td></tr><tr><td data-row="row-2f2l"><br></td><td data-row="row-2f2l"><br></td><td data-row="row-2f2l"><br></td><td data-row="row-2f2l"><br></td></tr><tr><td data-row="row-svn1"><br></td><td data-row="row-svn1"><br></td><td data-row="row-svn1"><br></td><td data-row="row-svn1"><br></td></tr><tr><td data-row="row-h4oe"><br></td><td data-row="row-h4oe"><br></td><td data-row="row-h4oe"><br></td><td data-row="row-h4oe"><br></td></tr></tbody></table>'
-                var tablefirmas = '<table><tbody><tr><td data-row="row-d934"><br></td><td data-row="row-d934" class="ql-align-center"><strong style="font-size: 16px;">Elaboró</strong></td><td data-row="row-d934" class="ql-align-center"><strong style="font-size: 16px;">Revisó</strong></td><td data-row="row-d934" class="ql-align-center"><strong style="font-size: 16px;">Aprobó</strong></td></tr><tr><td data-row="row-l26e" class="ql-align-right"><strong style="font-size: 16px;">Firmas</strong></td><td data-row="row-l26e"><br></td><td data-row="row-l26e"><br></td><td data-row="row-l26e"><br></td></tr><tr><td data-row="row-jvku" class="ql-align-right"><strong style="font-size: 16px;">Puesto</strong></td><td data-row="row-jvku"><br></td><td data-row="row-jvku"><br></td><td data-row="row-jvku"><br></td></tr></tbody></table>';
                 switch ('{{quill_id}}') {
                     case 'registros':
-                        html = tableregistro
+                        html = tableregistro;
                         break;
                     case 'cambios':
-                        html = tablerevision + '<p><br></p><p><br></p>' + tablefirmas;
+                        html = tablerevision;
                         break;
                 }
                 quill.setHTML(html);

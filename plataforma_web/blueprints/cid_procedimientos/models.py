@@ -36,10 +36,16 @@ class CIDProcedimiento(db.Model, UniversalMixin):
     responsabilidades = db.Column(db.Text(), nullable=False)  # RESPONSABILIDADES
     desarrollo = db.Column(db.Text(), nullable=False)  # DESARROLLO
     registros = db.Column(db.Text(), nullable=False)  # REGISTROS
-    cambios = db.Column(db.Text(), nullable=False)  # REGISTROS
-    # elaboro = db.Column(db.Text(), nullable=False)
-    # reviso = db.Column(db.Text(), nullable=False)
-    # aprobo = db.Column(db.Text(), nullable=False)
+    cambios = db.Column(db.Text(), nullable=False)  # CAMBIOS
+    elaboro_nombre = db.Column(db.Text(), nullable=False)
+    elaboro_puesto = db.Column(db.Text(), nullable=False)
+    elaboro_email = db.Column(db.Text(), nullable=False)
+    reviso_nombre = db.Column(db.Text(), nullable=False)
+    reviso_puesto = db.Column(db.Text(), nullable=False)
+    reviso_email = db.Column(db.Text(), nullable=False)
+    aprobo_nombre = db.Column(db.Text(), nullable=False)
+    aprobo_puesto = db.Column(db.Text(), nullable=False)
+    aprobo_email = db.Column(db.Text(), nullable=False)
     # etapa = db.Column(
     #    db.Enum(*ETAPAS, name="etapas", native_enum=False),
     #    index=True,
